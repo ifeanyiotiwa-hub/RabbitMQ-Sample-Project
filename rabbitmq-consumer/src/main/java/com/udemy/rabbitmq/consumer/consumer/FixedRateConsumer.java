@@ -14,7 +14,7 @@ public class FixedRateConsumer {
     private static final Logger LOG = LoggerFactory.getLogger(FixedRateConsumer.class);
     
     
-    @RabbitListener(queues = "course.fixedrate", concurrency = "3-7")
+//    @RabbitListener(queues = "course.fixedrate", concurrency = "3-7")
     public void listen(String message) throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(1000,2000));
         LOG.info("{}: Consuming {}", Thread.currentThread().getName().substring(32), message);

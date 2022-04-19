@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Component
+//@Component
 public class HelloRabbitProducer {
     private final RabbitTemplate rabbitTemplate;
     
-    @Autowired
+//    @Autowired
     public HelloRabbitProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
