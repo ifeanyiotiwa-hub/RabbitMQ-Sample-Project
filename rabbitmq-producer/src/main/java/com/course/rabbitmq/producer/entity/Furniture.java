@@ -37,4 +37,14 @@ public class Furniture {
     public void setPrice(int price) {
         this.price = price;
     }
+    
+    @Override
+    public String toString() {
+        return "Furniture: [" +
+                       "name: " + name +
+                       ", color: " + color +
+                       ", material: " + material +
+                       ", price: " + price +
+                       ']';
+    }
 }

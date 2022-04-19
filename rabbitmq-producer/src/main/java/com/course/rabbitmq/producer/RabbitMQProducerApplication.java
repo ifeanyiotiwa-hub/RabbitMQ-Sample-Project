@@ -1,11 +1,9 @@
 package com.course.rabbitmq.producer;
 
 import com.course.rabbitmq.producer.entity.Employee;
+import com.course.rabbitmq.producer.entity.Furniture;
 import com.course.rabbitmq.producer.entity.Picture;
-import com.course.rabbitmq.producer.producer.EmployeeJsonProducer;
-import com.course.rabbitmq.producer.producer.HelloRabbitProducer;
-import com.course.rabbitmq.producer.producer.PictureProducer;
-import com.course.rabbitmq.producer.producer.PictureProducerTopicExchange;
+import com.course.rabbitmq.producer.producer.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,14 +19,13 @@ import java.util.concurrent.ThreadLocalRandom;
 @SpringBootApplication
 //@EnableScheduling
 public class RabbitMQProducerApplication implements CommandLineRunner {
-//    @Autowired
-//    EmployeeJsonProducer employeeJsonProducer;
     
     @Autowired
-    private PictureProducerTopicExchange pictureProducer;
-    private final List<String> SOURCES = List.of("mobile", "web");
+    private FurnitureProducer producer;
     
-    private  final  List<String> TYPES = List.of("svg", "jpg", "png");
+    private final List<String> COLORS = List.of("white", "red", "green");
+    
+    private final List<String> MATERIALS = List.of("wood", "plastic", "steel");
     
     public static void main(String[] args) {
         SpringApplication.run(RabbitMQProducerApplication.class, args);
@@ -37,13 +34,17 @@ public class RabbitMQProducerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws JsonProcessingException {
         for (int i = 0; i < 10; i++) {
-            Picture picture = new Picture();
-            picture.setName("Picture " + i);
-            picture.setSize(ThreadLocalRandom.current().nextLong(1, 100000));
-            picture.setSource(SOURCES.get(i % SOURCES.size()));
-            picture.setType(TYPES.get(i % TYPES.size()));
-            System.err.println(picture);
-            pictureProducer.sendMessage(picture);
+            Furniture furniture = new Furniture();
+            furniture.setName("Furniture " + i);
+            furniture.setColor(COLORS.get(i % COLORS.size()));
+            furniture.setMaterial(MATERIALS.get(i % MATERIALS.size()));
+            furniture.setPrice(i * ThreadLocalRandom.current()
+                    .nextInt(1000, 2001));
+            
+            producer.sendMessage(furniture);
+    
+            System.err.println("sent : " + furniture);
+            
         }
     }
 }
