@@ -9,14 +9,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class FurnitureProducer {
     
     
-    @Autowired
+//    @Autowired
     private RabbitTemplate rabbitTemplate;
     
-    @Autowired
+//    @Autowired
     private ObjectMapper objectMapper;
     
     public void sendMessage(Furniture furniture) throws JsonProcessingException {

@@ -21,11 +21,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RabbitMQProducerApplication implements CommandLineRunner {
     
     @Autowired
-    private FurnitureProducer producer;
+    private MyPictureProducer producer;
     
-    private final List<String> COLORS = List.of("white", "red", "green");
+//    private final List<String> COLORS = List.of("white", "red", "green");
+//
+//    private final List<String> MATERIALS = List.of("wood", "plastic", "steel");
     
-    private final List<String> MATERIALS = List.of("wood", "plastic", "steel");
+    private final List<String> SOURCES = List.of("mobile", "web");
+    private final List<String> TYPES = List.of("jpg", "png", "svg");
     
     public static void main(String[] args) {
         SpringApplication.run(RabbitMQProducerApplication.class, args);
@@ -34,16 +37,25 @@ public class RabbitMQProducerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws JsonProcessingException {
         for (int i = 0; i < 10; i++) {
-            Furniture furniture = new Furniture();
-            furniture.setName("Furniture " + i);
-            furniture.setColor(COLORS.get(i % COLORS.size()));
-            furniture.setMaterial(MATERIALS.get(i % MATERIALS.size()));
-            furniture.setPrice(i * ThreadLocalRandom.current()
-                    .nextInt(1000, 2001));
+//            Furniture furniture = new Furniture();
+//            furniture.setName("Furniture " + i);
+//            furniture.setColor(COLORS.get(i % COLORS.size()));
+//            furniture.setMaterial(MATERIALS.get(i % MATERIALS.size()));
+//            furniture.setPrice(i * ThreadLocalRandom.current()
+//                    .nextInt(1000, 2001));
+//
+//            producer.sendMessage(furniture);
+//
+//            System.err.println("sent : " + furniture);
             
-            producer.sendMessage(furniture);
-    
-            System.err.println("sent : " + furniture);
+            Picture picture = new Picture();
+            picture.setName("Picture " + i);
+            picture.setSource(SOURCES.get(i % SOURCES.size()));
+            picture.setType(TYPES.get(i % TYPES.size()));
+            picture.setSize(ThreadLocalRandom.current().nextLong(9000, 10001));
+            
+            producer.sendMessage(picture);
+            System.err.println("publishing pictures------- " + picture);
             
         }
     }
